@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query } from "@nestjs/common";
+import { ApiQuery } from "@nestjs/swagger";
 import { IMessage } from "../models/IMessage";
 import { MessageService } from "../services/message.service";
 
@@ -7,12 +8,14 @@ export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
   @Get("/id")
-  findById(@Body("id") id: number) {
+  @ApiQuery({ name: "id", type: Number })
+  findById(@Query("id") id: number) {
     return this.messageService.findById(id, true);
   }
 
   @Get("/topic")
-  findByTopic(@Body("id") topicId: number) {
+  @ApiQuery({ name: "id", type: Number })
+  findByTopic(@Query("id") @Body("id") topicId: number) {
     return this.messageService.findByTopic(topicId);
   }
 

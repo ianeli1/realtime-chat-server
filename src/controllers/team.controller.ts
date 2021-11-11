@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query } from "@nestjs/common";
+import { ApiQuery } from "@nestjs/swagger";
 import { TeamService } from "../services/team.service";
 
 @Controller("teams")
@@ -6,12 +7,14 @@ export class TeamsController {
   constructor(private readonly teamService: TeamService) {}
 
   @Get("/id")
-  findById(@Body("id") id: number) {
+  @ApiQuery({ name: "id", type: Number })
+  findById(@Query("id") id: number) {
     return this.teamService.findById(id);
   }
 
   @Get("/name")
-  findByName(@Body("name") name: string) {
+  @ApiQuery({ name: "name", type: Number })
+  findByName(@Query("name") name: string) {
     return this.teamService.findByName(name);
   }
 
